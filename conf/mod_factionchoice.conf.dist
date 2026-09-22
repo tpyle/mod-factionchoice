@@ -1,0 +1,122 @@
+[worldserver]
+
+########################################
+# mod-factionchoice configuration
+#
+# Lets every character pick its faction, independent of race:
+#
+#   .faction alliance     play this character on the Alliance side
+#   .faction horde        play this character on the Horde side
+#   .faction reset        go back to the race's own faction
+#   .faction status       show what is currently in effect
+#
+# The choice is per character and survives relogging. It needs
+# "EnablePlayerSettings = 1" in worldserver.conf (otherwise the module
+# disables itself), and it is a good idea to also turn on the
+# AllowTwoSide.Interaction.* options so both sides can play together.
+########################################
+#
+#    FactionChoice.Enable
+#        Description: Enable the .faction command and the override.
+#        Default:     1 - (Enabled)
+#                     0 - (Disabled)
+
+FactionChoice.Enable = 1
+
+#
+#    FactionChoice.TeleportOnSwitch
+#        Description: Move the character to its new capital when it switches
+#                     sides. Recommended: the guards of your race's own home
+#                     city turn hostile the moment you switch, so standing
+#                     there is not healthy.
+#        Default:     1 - (Enabled)
+
+FactionChoice.TeleportOnSwitch = 1
+
+#
+#    FactionChoice.SetHomebind
+#        Description: Also re-bind the hearthstone to the new capital.
+#        Default:     1 - (Enabled)
+
+FactionChoice.SetHomebind = 1
+
+#
+#    FactionChoice.AnnounceOnLogin
+#        Description: Remind the character on login that it is playing on a
+#                     chosen side.
+#        Default:     1 - (Enabled)
+
+FactionChoice.AnnounceOnLogin = 1
+
+#
+#    FactionChoice.PromptRetries / FactionChoice.PromptRetrySeconds
+#        Description: The client silently drops a gossip packet that arrives
+#                     while it is still on its loading screen, and a freshly
+#                     created character can load slowly enough to miss the
+#                     first attempt. So the window is offered again a few
+#                     times, and stops as soon as it is answered. The module
+#                     also waits for the session to finish loading before each
+#                     attempt.
+#        Default:     4 attempts, 20 seconds apart
+
+FactionChoice.PromptRetries = 4
+FactionChoice.PromptRetrySeconds = 20
+
+#
+#    FactionChoice.Capital.Alliance / FactionChoice.Capital.Horde
+#        Description: Where to send (and bind) a character that switches
+#                     sides. These are names from the world database's
+#                     game_tele table, the same ones ".tele" accepts.
+#        Default:     "Stormwind" / "Orgrimmar"
+
+FactionChoice.Capital.Alliance = "Stormwind"
+FactionChoice.Capital.Horde = "Orgrimmar"
+
+#
+#    FactionChoice.AlignReputations
+#        Description: Also move the character's reputations onto the chosen
+#                     side's starting values, keeping whatever it earned on
+#                     top. This is what makes the new side's NPCs talk to you:
+#                     creatures judge a player by reputation, not by faction
+#                     template, so without it they stay "unfriendly" - red name
+#                     plates and no interaction - even though they do not
+#                     attack. Switching back restores the original baseline.
+#        Default:     1 - (Enabled)
+
+FactionChoice.AlignReputations = 1
+
+#
+#    FactionChoice.StarterZoneMaxLevel
+#        Description: Characters at or below this level are sent to the new
+#                     side's *starting zone* instead of its capital, which is
+#                     where a fresh character actually wants to be. The
+#                     position comes from playercreateinfo for the side's
+#                     proxy race, so by default that is Northshire Valley for
+#                     the Alliance and the Valley of Trials for the Horde.
+#        Default:     4 - (levels 1-4, i.e. below level 5)
+#                     0 - (always use the capital)
+
+FactionChoice.StarterZoneMaxLevel = 4
+
+#
+#    FactionChoice.PromptOnFirstLogin
+#        Description: The first time a character logs in, open a window asking
+#                     which side it will fight for. Picking the side its race
+#                     does not belong to opens a second window to choose which
+#                     of that side's starting zones to begin in.
+#                     A character is only ever asked once; ".faction alliance"
+#                     / ".faction horde" still work afterwards, and
+#                     ".faction where" re-opens the destination chooser.
+#                     Requires the npc_text rows from
+#                     sql/04_factionchoice_gossip.sql.
+#        Default:     1 - (Enabled)
+
+FactionChoice.PromptOnFirstLogin = 1
+
+#
+#    FactionChoice.PromptDelay
+#        Description: Milliseconds to wait after login before opening the
+#                     window, so the client has finished loading the world.
+#        Default:     3000
+
+FactionChoice.PromptDelay = 3000
