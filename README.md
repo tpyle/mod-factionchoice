@@ -31,3 +31,8 @@ peace-forced, which is right for an ordinary character and wrong here:
 `Initialize()` re-derives those flags from the race on every login, so
 without it the adopted side comes back at war after each relog and the client
 refuses to talk to its own faction's NPCs.
+
+## Licence
+
+GNU Affero General Public License v3.0, the licence AzerothCore and its
+modules use. See [LICENSE](LICENSE).
