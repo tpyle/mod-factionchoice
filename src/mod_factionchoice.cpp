@@ -703,7 +703,7 @@ public:
         LOG_INFO("module", "mod-factionchoice: {} (race {}) plays on the {} side",
             player->GetName(), player->getRace(true), TeamName(team));
 
-        if (cfg.AnnounceOnLogin && player->GetSession() && !player->GetSession()->IsBot())
+        if (cfg.AnnounceOnLogin && player->GetSession() && !player->GetSession()->IsHeadless())
             ChatHandler(player->GetSession()).PSendSysMessage("You are playing on the {} side. Use \".faction reset\" to return to your race's own faction.", TeamName(team));
     }
 
@@ -776,7 +776,7 @@ public:
                 ApplyChoice(player, team);
                 player->UpdatePlayerSetting(SETTINGS_SOURCE, SETTING_PROMPTED, 1);
 
-                if (player->GetSession() && !player->GetSession()->IsBot())
+                if (player->GetSession() && !player->GetSession()->IsHeadless())
                     ChatHandler(player->GetSession()).PSendSysMessage("You now fight for the {}.", TeamName(team));
 
                 LOG_INFO("module", "mod-factionchoice: {} (race {}) took up the {} banner on arrival",
@@ -895,7 +895,7 @@ private:
 
         // Bots have no one to answer the window, and a character that already
         // answered is never asked again.
-        if (!player->GetSession() || player->GetSession()->IsBot())
+        if (!player->GetSession() || player->GetSession()->IsHeadless())
             return;
 
         if (player->GetPlayerSetting(SETTINGS_SOURCE, SETTING_PROMPTED).value)
